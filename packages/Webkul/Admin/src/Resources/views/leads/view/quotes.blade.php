@@ -61,7 +61,7 @@
 
                     <x-admin::table.tbody>
                         <x-admin::table.tbody.tr v-for="quote in quotes" class="border-b">
-                            <x-admin::table.td class="!px-2">@{{ quote.subject }}</x-admin::table.td>
+                            <x-admin::table.td class="text-wrap !px-2">@{{ quote.subject }}</x-admin::table.td>
 
                             <x-admin::table.td class="!px-2">@{{ quote.expired_at }}</x-admin::table.td>
 
