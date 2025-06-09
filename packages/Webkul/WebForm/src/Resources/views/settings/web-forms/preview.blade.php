@@ -80,10 +80,20 @@
                 },
 
                 methods: {
-                    create(params, { resetForm }) {
+                    create(params, { resetForm, setErrors }) {
                         this.isStoring = true;
 
                         const formData = new FormData(this.$refs.webForm);
+
+                        let inputNames = Array.from(formData.keys());
+
+                        inputNames = inputNames.reduce((acc, name) => {
+                            const dotName = name.replace(/\[([^\]]+)\]/g, '.$1');
+
+                            acc[dotName] = name;
+
+                            return acc;
+                        }, {});
 
                         this.$axios
                             .post('{{ route('admin.settings.web_forms.form_store', $webForm->id) }}', formData, {
@@ -105,7 +115,30 @@
                                     return;
                                 }
 
-                                this.$emitter.emit('add-flash', { type: 'error', message: error.response.data.message });
+                                if (! error.response.data.errors) {
+                                    this.$emitter.emit('add-flash', { type: 'error', message: error.response.data.message });
+
+                                    return;
+                                }
+
+                                const laravelErrors = error.response.data.errors || {};
+                                const mappedErrors = {};
+
+                                for (
+                                    const [dotKey, messages]
+                                    of Object.entries(laravelErrors)
+                                ) {
+                                    const inputName = inputNames[dotKey];
+
+                                    if (
+                                        inputName
+                                        && messages.length
+                                    ) {
+                                        mappedErrors[inputName] = messages[0];
+                                    }
+                                }
+
+                                setErrors(mappedErrors);
                             })
                             .finally(() => {
                                 this.isStoring = false;
