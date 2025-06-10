@@ -284,7 +284,7 @@
             id="v-quote-item-list-template"
         >
             <div class="flex flex-col gap-4">
-                <div class="block w-full overflow-x-auto">
+                <div class="block w-full">
                     {!! view_render_event('admin.contacts.quotes.create.table.after') !!}
 
                     <!-- Table -->

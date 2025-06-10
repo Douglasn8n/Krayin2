@@ -273,7 +273,7 @@
             id="v-quote-item-list-template"
         >
             <div class="flex flex-col gap-4">
-                <div class="block w-full overflow-x-auto">
+                <div class="block w-full">
                     <!-- Table -->
                     <x-admin::table>
                         <!-- Table Head -->
@@ -771,7 +771,7 @@
                     addProduct(result) {
                         this.product.product_id = result.id;
                         this.product.name = result.name;
-                        this.product.price = result.price;
+                        this.product.price = result.price ?? 0;
                         this.product.quantity = result.quantity ?? 1;
                         this.product.discount_amount = 0;
                         this.product.tax_amount = 0;
