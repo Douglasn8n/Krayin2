@@ -29,9 +29,14 @@
                         alt="{{ config('app.name') }}"
                     />
 
-                    <h1 style="color: {{ $webForm->form_title_color }} !important;">{{ $webForm->title }}</h1>
+                    <h1
+                        class="text-2xl font-bold"
+                        style="color: {{ $webForm->form_title_color }} !important;"
+                    >
+                        {{ $webForm->title }}
+                    </h1>
 
-                    <p>{{ $webForm->description }}</p>
+                    <p class="mt-2 text-base text-gray-600">{{ $webForm->description }}</p>
 
                     <div
                         class="box-shadow flex min-w-[300px] flex-col rounded-lg border border-gray-200 bg-white p-4 dark:bg-gray-900"
